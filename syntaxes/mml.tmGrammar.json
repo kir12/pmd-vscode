@@ -1,0 +1,24 @@
+{
+    "scopeName": "source.mml",
+    "patterns": [
+        {"include": "#comment"},
+        {"include": "#control"}
+    ],
+    "repository": {
+        "comment": {
+            "patterns": [
+                {"include": "#semicoloncomment"}
+            ],
+            "repository": {
+                "semicoloncomment": {
+                    "match": ";.+$",
+                    "name": "comment.line.semicolon"
+                }
+            }
+        },
+        "control": {
+            "match": "#[^   ]+",
+            "name": "keyword.control.import"
+        }
+    }
+}
