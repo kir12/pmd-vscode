@@ -1,24 +1,47 @@
 {
     "scopeName": "source.mml",
     "patterns": [
+        {"include": "#instruments"},
         {"include": "#comment"},
         {"include": "#control"}
     ],
     "repository": {
         "comment": {
             "patterns": [
-                {"include": "#semicoloncomment"}
+                {"include": "#semicoloncomment"},
+                {"include": "#startoflinecomment"}
             ],
             "repository": {
                 "semicoloncomment": {
                     "match": ";.+$",
                     "name": "comment.line.semicolon"
+                },
+                "startoflinecomment": {
+                    "match": "^( |  ).+$",
+                    "name": "comment.line.startofline"
                 }
             }
         },
         "control": {
             "match": "#[^   ]+",
             "name": "keyword.control.import"
+        },
+        "instruments": {
+            "patterns": [{"include":"instrumentBlock"}],
+            "repository": {
+                "instrumentBlock": {
+                    "begin": "^@[0-9]+",
+                    "end": "[0-9]+$",
+                    "name": "constant.numeric",
+                    "beginCaptures": {
+                        "0": {"name":"instrument.begin"}
+                    },
+                    "endCaptures": {
+                        "0": {"name":"instrument.end"}
+                    }
+
+                }
+            }
         }
     }
 }
