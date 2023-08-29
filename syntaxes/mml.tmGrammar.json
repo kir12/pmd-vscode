@@ -27,21 +27,13 @@
             "name": "keyword.control.import"
         },
         "instruments": {
-            "patterns": [{"include":"instrumentBlock"}],
-            "repository": {
-                "instrumentBlock": {
-                    "begin": "^@[0-9]+",
-                    "end": "[0-9]+$",
-                    "name": "constant.numeric",
-                    "beginCaptures": {
-                        "0": {"name":"instrument.begin"}
-                    },
-                    "endCaptures": {
-                        "0": {"name":"instrument.end"}
-                    }
-
-                }
-            }
+            "begin": "^@[0-9]+",
+            "while": "^( |[0-9]|    |;)",
+            "name": "constant.numeric.instrumentblock",
+            "patterns": [{
+                "match": ";.+$",
+                "name": "comment.line.instrumentembedded"
+            }]
         }
     }
 }
