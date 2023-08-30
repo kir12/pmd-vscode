@@ -105,7 +105,11 @@
             "patterns": [
                 {"include":"#portamento"},
                 {"include":"#octave"},
-                {"include":"#octavechange"}
+                {"include":"#octavechange"},
+                {"include":"#length"},
+                {"include":"#tieslur"},
+                {"include":"#wholenote"},
+                {"include":"#soundcut"}
             ],
             "repository": {
                 "portamento": {
@@ -119,6 +123,21 @@
                 "octavechange": {
                     "match": "[<|>|X]+",
                     "name": "support.function.octavechange"
+                },
+                "length": {
+                    "match": "l[=+-^]{0,1}%{0,1}[0-9]*[.]*",
+                    "name": "support.function.length"
+                },
+                "tieslur":{
+                    "match": "&{1,2}[0-9]*[.]*",
+                    "name": "support.function.tieslur"
+                },
+                "wholenote":{
+                    "match": "C[0-9]+",
+                    "name": "support.function.wholenote"
+                },
+                "soundcut":{
+                    "match": "[Q|q]"
                 }
             }
         }
