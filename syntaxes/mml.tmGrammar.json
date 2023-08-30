@@ -3,7 +3,8 @@
     "patterns": [
         {"include": "#instruments"},
         {"include": "#comment"},
-        {"include": "#control"}
+        {"include": "#control"},
+        {"include": "#channels"}
     ],
     "repository": {
         "comment": {
@@ -45,6 +46,10 @@
                 },
                 {"include": "#semicoloncomment"}
             ]
+        },
+        "channels": {
+            "match": "^[a-zA-Z0-9]+[ |\t]",
+            "name": "entity.name.type.channelnotation"
         }
     }
 }
