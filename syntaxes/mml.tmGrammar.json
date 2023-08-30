@@ -28,12 +28,23 @@
         },
         "instruments": {
             "begin": "^@[0-9]+",
-            "while": "^( |[0-9]|    |;)",
+            "while": "^( |[0-9]|    |[;])",
             "name": "constant.numeric.instrumentblock",
-            "patterns": [{
-                "match": ";.+$",
-                "name": "comment.line.instrumentembedded"
-            }]
+            "beginCaptures": {
+                "0": {"name": "constant.character.instrumentnumber"}
+            },
+            "patterns": [
+                {
+                    "match": "^;.+$",
+                    "name": "comment.line.instrumentembedded",
+                    "note": "doesn't work for some reason"
+                },
+                {
+                    "match": "=.+$",
+                    "name": "constant.character.instrumentname"
+                },
+                {"include": "#semicoloncomment"}
+            ]
         }
     }
 }
