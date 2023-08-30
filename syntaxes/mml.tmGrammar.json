@@ -6,7 +6,8 @@
         {"include": "#control"},
         {"include": "#channels"},
         {"include": "#notes"},
-        {"include": "#errors"}
+        {"include": "#errors"},
+        {"include": "#operators"}
     ],
     "repository": {
         "comment": {
@@ -39,24 +40,36 @@
                 "endCaptures": {"0":{"name": "string.quoted.importsetting"}}
         },
         "instruments": {
-            "begin": "^@[0-9]+",
-            "while": "^( |[0-9]|    |[;])",
-            "name": "constant.numeric.instrumentblock",
-            "beginCaptures": {
-                "0": {"name": "constant.character.instrumentnumber"}
-            },
             "patterns": [
-                {
-                    "match": "^;.+$",
-                    "name": "comment.line.instrumentembedded",
-                    "note": "doesn't work for some reason"
+                {"include":"#instrumentblock"},
+                {"include":"#instrumentinline"}
+            ],
+            "repository": {
+                "instrumentinline": {
+                    "match":"@[0-9]+[-,0-9]*",
+                    "name": "constant.character.instrumentinline"
                 },
-                {
-                    "match": "=.+$",
-                    "name": "constant.character.instrumentname"
-                },
-                {"include": "#semicoloncomment"}
-            ]
+                "instrumentblock": {
+                    "begin": "^@[0-9]+",
+                    "while": "^( |[0-9]|    |[;])",
+                    "name": "constant.numeric.instrumentblock",
+                    "beginCaptures": {
+                        "0": {"name": "constant.character.instrumentnumber"}
+                    },
+                    "patterns": [
+                        {
+                            "match": "^;.+$",
+                            "name": "comment.line.instrumentembedded",
+                            "note": "doesn't work for some reason"
+                        },
+                        {
+                            "match": "=.+$",
+                            "name": "constant.character.instrumentname"
+                        },
+                        {"include": "#semicoloncomment"}
+                    ]
+                }
+            }
         },
         "channels": {
 
@@ -87,6 +100,27 @@
         "errors": {
             "match": "[ ]+,",
             "name": "invalid.illegal.spacecomma"
+        },
+        "operators": {
+            "patterns": [
+                {"include":"#portamento"},
+                {"include":"#octave"},
+                {"include":"#octavechange"}
+            ],
+            "repository": {
+                "portamento": {
+                    "match": "{|}[0-9]*[.]*[,0-9]*",
+                    "name": "support.function.portamento"
+                },
+                "octave": {
+                    "match": "o[+|-]{0,1}[0-9]",
+                    "name": "support.function.octave"
+                },
+                "octavechange": {
+                    "match": "[<|>|X]+",
+                    "name": "support.function.octavechange"
+                }
+            }
         }
     }
 }
