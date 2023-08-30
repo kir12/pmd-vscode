@@ -4,13 +4,16 @@
         {"include": "#instruments"},
         {"include": "#comment"},
         {"include": "#control"},
-        {"include": "#channels"}
+        {"include": "#channels"},
+        {"include": "#notes"},
+        {"include": "#errors"}
     ],
     "repository": {
         "comment": {
             "patterns": [
                 {"include": "#semicoloncomment"},
-                {"include": "#startoflinecomment"}
+                {"include": "#startoflinecomment"},
+                {"include": "#blockcomment"}
             ],
             "repository": {
                 "semicoloncomment": {
@@ -20,12 +23,20 @@
                 "startoflinecomment": {
                     "match": "^( |  ).+$",
                     "name": "comment.line.startofline"
+                },
+                "blockcomment": {
+                    "begin": "`",
+                    "end": "`",
+                    "name": "comment.block.blockcomment"
                 }
             }
         },
         "control": {
-            "match": "#[^   ]+",
-            "name": "keyword.control.import"
+                "begin": "#[^   ]+",
+                "end": "[ |\t].+$",
+                "name": "keyword.control.import",
+                "beginCaptures": {"0":{"name": "keyword.control.importname"}},
+                "endCaptures": {"0":{"name": "string.quoted.importsetting"}}
         },
         "instruments": {
             "begin": "^@[0-9]+",
@@ -48,8 +59,34 @@
             ]
         },
         "channels": {
-            "match": "^[a-zA-Z0-9]+[ |\t]",
-            "name": "entity.name.type.channelnotation"
+
+            "patterns": [
+                {"include": "#channelnotation"},
+                {"include": "#rsschannels"},
+                {"include": "#macros"}
+            ],
+            "repository": {
+                "channelnotation": {
+                    "match": "^[a-zA-Z0-9]+[ |\t]",
+                    "name": "entity.name.type.channelnotation"
+                },
+                "rsschannels": {
+                    "match": "[R][0-9]+",
+                    "name": "entity.name.type.rsschannelnotation"
+                },
+                "macros":{
+                    "match": "![A-Za-z0-9]+",
+                    "name": "constant.character.escape.macro"
+                }
+            }
+        },
+        "notes": {
+            "match": "[cdefgabr][+-=]*[$%]{0,1}[0-9]*[.]*",
+            "name": "support.variable.note"
+        },
+        "errors": {
+            "match": "[ ]+,",
+            "name": "invalid.illegal.spacecomma"
         }
     }
 }
