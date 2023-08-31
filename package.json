@@ -1,8 +1,9 @@
 {
   "name": "pmd-vscode",
-  "displayName": "pmd-vscode",
+  "displayName": "PMD for VSCode",
   "description": "Language tools for Professional Music Driver on VSCode",
   "version": "0.0.1",
+  "publisher": "kir12",
   "engines": {
     "vscode": "^1.81.0"
   },

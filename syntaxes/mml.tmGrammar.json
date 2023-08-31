@@ -109,7 +109,9 @@
                 {"include":"#length"},
                 {"include":"#tieslur"},
                 {"include":"#wholenote"},
-                {"include":"#soundcut"}
+                {"include":"#soundcut"},
+                {"include":"#panning"},
+                {"include":"#volume"}
             ],
             "repository": {
                 "portamento": {
@@ -137,7 +139,22 @@
                     "name": "support.function.wholenote"
                 },
                 "soundcut":{
-                    "match": "[Q|q]"
+                    "note": "start from section 4.12"
+                },
+                "panning":{
+                    "patterns": [
+                        {"match":"p[123]","name":"support.function.fmpanning"},
+                        {"match":"px[-]{0,1}[0-9]+[,]{0,1}[0-9]*","name":"support.function.ppz8panning"}
+                    ]
+                },
+                "volume":{
+                    "patterns": [
+                        {"match":"v[0-9]+", "name":"support.function.volume"},
+                        {"match":"V[0-9]+", "name":"support.function.finevolume"},
+                        {"match":"v[-+][0-9]+","name":"support.function.overallvolumechange"},
+                        {"match":"v[()][0-9]+","name":"support.function.overallvolumechange2"},
+                        {"match":"[()][%^]{0,2}[0-9]{0,3}","name":"support.function.relativevolumechange"}
+                    ]
                 }
             }
         }
